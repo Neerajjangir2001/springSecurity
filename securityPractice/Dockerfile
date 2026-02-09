@@ -10,6 +10,6 @@ RUN ./mvnw install -DskipTests
 # Run stage
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY --from=build /target/securityPractice-0.0.1-SNAPSHOT.jar . 
+COPY --from=build /app/target/securityPractice-0.0.1-SNAPSHOT.jar . 
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "securityPractice-0.0.1-SNAPSHOT.jar"]
