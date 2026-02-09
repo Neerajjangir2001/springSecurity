@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=jdbc:mysql://db:3306/security_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - DB_USERNAME=root
+      - DB_PASSWORD=Neeraj2001@
+      - JWT_SECRET=dGVzdGluZ3B1cnBvc2UtdXNlaHR0cHMtaW5zdGVhZG9md2hhdGUzMnRlc3Rpbmcta2V5
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: security_db
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+      # Auto-import init.sql if it exists
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+    command: --default-authentication-plugin=mysql_native_password
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
