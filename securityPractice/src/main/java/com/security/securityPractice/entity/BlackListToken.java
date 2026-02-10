@@ -23,6 +23,6 @@ public class BlackListToken {
 
     @Column(nullable = false, unique = true, length = 500)
     private String token;
-
+    @Column(name = "expiry_date", columnDefinition = "DATETIME", nullable = false)
     private Instant expiryDate;
 }

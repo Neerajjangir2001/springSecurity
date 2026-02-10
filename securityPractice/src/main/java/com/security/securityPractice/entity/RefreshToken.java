@@ -16,11 +16,9 @@ import java.time.Instant;
 @Builder
 public class RefreshToken {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(nullable = false, length = 36, unique = true)
     private String token;
@@ -29,5 +27,7 @@ public class RefreshToken {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @Column(name = "expiry_date", columnDefinition = "DATETIME", nullable = false)
     private Instant expiryDate;
+
 }
